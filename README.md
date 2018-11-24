@@ -1,7 +1,13 @@
 # ImgDehazing
 EE610 Project
 
-
+# Folder Structure
+* code - code files
+* data
+1. dehazed - dehazed images (output)
+2. dmap - depthmaps (intermediate)
+3. hazy - hazy images (input)
+README.md - this file
 
 # Research Papers
 Q. Zhu, J. Mai, and L. Shao ,"A Fast Single Image Haze Removal Algorithm
@@ -18,5 +24,5 @@ Using Color Attenuation Prior", in IEEE Transactions On Image Processing, Vol. 2
 # Installing DEPENDENCIES
 ```
 sudo apt-get install python-pip python-matplotlib python-tk
-pip install --user numpy opencv-python
+pip install --user numpy opencv-python scipy
 ```
