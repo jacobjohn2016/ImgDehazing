@@ -58,7 +58,8 @@ for i in files:
                 beta = 1.0
                 t = np.empty(R.shape)
                 t = np.exp(-beta*d)
-                A = np.random.normal(mu, sigma, J.shape).astype(np.float32)
+                # A = np.random.normal(mu, sigma, J.shape).astype(np.float32)
+                A = np.ones(J.shape)* np.random.normal(mu, sigma, 1).astype(np.float32)
                 # print(np.max(k),np.min(k))
                 I_R = np.multiply(R,t)-np.multiply(A[:,:,2],t)+A[:,:,2]
                 I_G = np.multiply(G,t)-np.multiply(A[:,:,1],t)+A[:,:,1]
@@ -77,7 +78,7 @@ for i in files:
                 # plt.title('Hazed Image')
                 # plt.show()
                 cv2.imwrite(cwd+'/haze_img/' + i,O)
-                cv2.imwrite(cwd+'/depthmap/' + "depthmap_"+i,d)
+                cv2.imwrite(cwd+'/depthmap/' + "depthmap_"+i,d) # multiply with 255.0 to see how it adds the haze to the original image
                 # exit()
             else:
                 cv2.imwrite(cwd+'/haze_img/' + "no_haze_"+i,J)

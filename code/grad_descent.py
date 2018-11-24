@@ -19,6 +19,8 @@ for i in depth_files:
     _I = cv2.imread(cwd+"/haze_img/" + img_file_name )
     I = cv2.cvtColor(_I, cv2.COLOR_BGR2RGB)
     H,S,V = cv2.split(cv2.cvtColor(I, cv2.COLOR_BGR2HSV))
+    S = S/255.0
+    V = V/255.0
     img_h = V.shape[0]
     img_w = V.shape[1]
     zero_array = np.zeros(V.shape)
