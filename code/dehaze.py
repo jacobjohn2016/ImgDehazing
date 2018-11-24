@@ -3,6 +3,31 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
+
+def guide(I,P,r,e):
+
+    h,w=np.shape(I)
+    window = np.ones((r,r))/(r*r)
+    
+    meanI = sig.convolve2d(I, window,mode='same')
+    meanP = sig.convolve2d(P, window,mode='same')
+    
+    corrI = sig.convolve2d(I*I, window,mode='same')
+    corrIP = sig.convolve2d(I*P, window,mode='same')
+    
+    
+    varI = corrI - meanI*meanI
+    covIP = corrIP - meanI*meanP
+    a = covIP/(varI+e)
+    b = meanP - a*meanI
+    
+    meana = sig.convolve2d(a, window,mode='same')
+    meanb = sig.convolve2d(b, window,mode='same')
+    
+    q = meana*I+meanb
+
+    return q
+
 def localmin(D, r=15):
     R = int(r/2)
     imax = D.shape[0]
@@ -40,6 +65,14 @@ LMD = localmin(D, 15)
 # LMD = D
 LMD = LMD - np.min(LMD)
 LMD = 255*LMD/np.max(LMD)
+
+r = 8; # try r=2, 4, or 8
+eps = 0.2 * 0.2; # try eps=0.1^2, 0.2^2, 0.4^2
+eps *= 255 * 255;   # Because the intensity range of our images is [0, 255]
+# LMD1=guide(D,LMD,r,eps)
+# import guidedfilter
+# from guidedfilter import guidedfilter as gF
+# LMD2=gF(D,LMD,r,eps)
 
 # Plot the generated raw depth map
 plt.imshow(LMD, cmap='inferno')
