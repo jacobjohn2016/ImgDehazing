@@ -1,0 +1,136 @@
+\documentclass{beamer}
+\setbeamercolor{alerted text}{fg=blue}
+\setbeamercolor{button}{bg=white,fg=white}
+\usepackage{beamerthemesplit}
+\usepackage{beamerthemeshadow}
+\usepackage{animate}
+\usepackage{tabu}
+\usepackage{verbatim}
+\usepackage{graphics}
+\usepackage{ amssymb }
+\usepackage{verbatim}
+\usepackage{amsmath}
+\usepackage{ stmaryrd }
+
+
+%\definecolor{myred}{rgb}{0.125,0.5,0.25}
+%\definecolor{frenchblue}{rgb}{0.0, 0.45, 0.73}
+\definecolor{teal}{rgb}{0.0, 0.5, 0.5}
+\usecolortheme[named=teal]{structure}
+
+\title[Pilot Contamination\hspace{0.5cm} \insertframenumber/\inserttotalframenumber]{Image Dehazing}
+\author{M.Arun Kumar,T.Anuraag,K.Hitesh,G.Akhil}
+\institute[IIT Bombay]
+
+  
+\date{ }
+\logo{
+\includegraphics[scale=0.1]{Seminar_figures/iitb.png}
+}
+
+\begin{document}
+
+\begin{frame}
+	\sffamily %\bfseries 
+	\titlepage	
+\end{frame}
+
+%---------------------------------------------------------------------------------
+\begin{frame}[t]{Outline} \vspace*{0.7cm}
+	\begin{itemize}
+		\item Introduction
+		\item DCP and CAP
+		\item System Model
+		\item Simulation Results 
+		\item Conclusions
+		
+		
+	\end{itemize}	
+\end{frame}
+
+
+%-----------------------------------------------------------------------------------
+\begin{frame}[t]{Introduction}
+    \vspace{0.7cm} 
+    
+\begin{itemize}
+
+\item {Degraded image due to Atmosphere results in haze image.}
+\item {Haze removal helps in some fields like image processing, computer vision etc.,}
+
+\item {Use of traditional techniques for Removal of haze from a single image is challenging task}
+\item {Use of DCP and CAP helps in haze removal}
+%\pause
+
+
+\end{itemize}
+
+\end{frame}
+%-----------------------------------------------------------------------------------
+\begin{frame}[t]{Drak Channel Prior (DCP)}
+
+\item{The dark channel pri-
+or is based on the statistics of haze-free outdoor image}
+\item{Except sky region most of the local patches in the image have low intensity in atleast one color channel}
+\item{In haze image intensity of these dark pixels change due to haze}
+\item{These dark pixels provide estimate of the haze transmission.}
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/dcp.pdf}
+    \caption{DCP and Atmospheric Light}
+\end{figure}
+\end{frame}
+
+\begin{frame}[t]{Color Attenuation Prior (CAP)}
+\item{Haze free patches have high saturation}
+\item{Saturation decreases and brigthness increases due to Haze}
+\item{Brightness decreases becauses of direct attenuation}
+\begin{figure}[htbp!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{figures/cap.pdf}
+    \caption{CAP and Atmospheric Light}
+\end{figure}
+
+\end{frame}
+\begin{frame}[t]{System Model}
+\item{Atmospheric Scattering Model}
+\begin{align} {{\mathbf{I}}}(x)=&{{\mathbf{J}}}(x)t(x)+{{\mathbf{A}}}(1-t(x)),
+ \\ t(x)=&e^{-\beta d(x)} 
+\end{align}
+
+\item{I is the hazy image, J is the scene radiance representing the haze-free image, A is the atmospheric light, t is the medium transmission, β is the scattering coefficient of the atmosphere and d is the depth of scene}
+
+\end{frame}
+
+%-------------------------------------------------------------------------------
+\begin{frame}[t]{References}
+\vspace{0.6cm}
+
+\begin{thebibliography}{5}
+\bibitem{1}
+F. Fernandes and A. Ashikhmin and T. L. Marzetta, "Inter-Cell Interference in Noncooperative TDD Large Scale Antenna Systems",\textit{IEEE Journal on Selected Areas in Communications}, vol. IT-31, pp. 192-201, 2013.
+
+\bibitem{2}
+Thomas L. Marzetta, "Noncooperative Cellular Wireless with
+Unlimited Numbers of Base Station Antennas.",\textit{IEEE transactions on Wireless Communications}  Vol. 9, no. 11, November 2010
+
+\bibitem{3}
+Jubin Jose, Alexei Ashikhmin, Thomas L. Marzetta and Sriram Vishwanath,"Pilot Contamination and Precoding in
+Multi-Cell TDD Systems", \textit{
+IEEE transactions on Wireless Communications}, Vol. 10, no. 8, August 2011
+
+\end{thebibliography} 
+
+\end{frame}
+
+%--------------------------------------------------------------------------------
+\begin{frame}[t]
+\vspace{3cm}
+\centering
+\textbf{\Huge{Thank you}}
+\end{frame}
+
+%---------------------------------------------------------------------------------
+
+\end{document}
+

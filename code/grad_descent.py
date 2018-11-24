@@ -26,6 +26,7 @@ for i in depth_files:
     zero_array = np.zeros(V.shape)
     theta_0, theta_1, theta_2 = zero_array, zero_array+1 ,zero_array-1
     sum, wsum, vsum, ssum = 0, 0, 0, 0
+    sigma = 0
     for j in range(0,iter):
         temp = j - theta_0-np.multiply(theta_1,V)-np.multiply(theta_2,S)
         wsum += np.sum(temp)
