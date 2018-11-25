@@ -61,8 +61,8 @@ def postprocessing(GD, I):
     print(A)
 
     beta = 1.0
-    # transmission = np.minimum( np.maximum(np.exp(-1*beta*GD), 0.1) , 0.9)
-    transmission = np.exp(-1*beta*GD)
+    transmission = np.minimum( np.maximum(np.exp(-1*beta*GD), 0.1) , 0.9)
+    # transmission = np.exp(-1*beta*GD)
     transmission3 = np.zeros(I.shape)
     transmission3[:,:,0] = transmission
     transmission3[:,:,1] = transmission
@@ -74,7 +74,7 @@ def postprocessing(GD, I):
     return J
 
 
-filename = '999.jpg'
+filename = 'canon7.jpg'
 # Read the Image
 _I = cv2.imread('../data/hazy/' + filename )
 # opencv reads any image in Blue-Green-Red(BGR) format,
@@ -118,4 +118,5 @@ plt.show()
 
 # save the depthmap.
 # Note: It will be saved as gray image.
-cv2.imwrite('../data/dehazed/' + filename, J)
+# cv2.imwrite('../data/dehazed/' + filename, J)
+plt.imsave('../data/dehazed/' + filename,int(J*255.0))

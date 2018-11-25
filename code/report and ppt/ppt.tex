@@ -33,7 +33,7 @@
 \begin{frame}
 	\sffamily %\bfseries 
 	\titlepage	
-\end{frame}
+	\end{frame}
 
 %---------------------------------------------------------------------------------
 \begin{frame}[t]{Outline} \vspace*{0.7cm}
@@ -41,6 +41,8 @@
 		\item Introduction
 		\item DCP and CAP
 		\item System Model
+		\item Transmission Map
+		\item Depth Map extraction
 		\item Simulation Results 
 		\item Conclusions
 		
@@ -51,17 +53,20 @@
 
 %-----------------------------------------------------------------------------------
 \begin{frame}[t]{Introduction}
-    \vspace{0.7cm} 
     
 \begin{itemize}
 
-\item {Degraded image due to Atmosphere results in haze image.}
+\item {Outdoor images tend to have haze in them.}
 \item {Haze removal helps in some fields like image processing, computer vision etc.,}
 
 \item {Use of traditional techniques for Removal of haze from a single image is challenging task}
 \item {Use of DCP and CAP helps in haze removal}
-%\pause
-
+\pause
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/intro.png}
+    \caption{Imaging Model}
+\end{figure}
 
 \end{itemize}
 
@@ -69,8 +74,7 @@
 %-----------------------------------------------------------------------------------
 \begin{frame}[t]{Drak Channel Prior (DCP)}
 
-\item{The dark channel pri-
-or is based on the statistics of haze-free outdoor image}
+\item{The dark channel prior is based on the statistics of haze-free outdoor image}
 \item{Except sky region most of the local patches in the image have low intensity in atleast one color channel}
 \item{In haze image intensity of these dark pixels change due to haze}
 \item{These dark pixels provide estimate of the haze transmission.}
@@ -98,10 +102,124 @@ or is based on the statistics of haze-free outdoor image}
  \\ t(x)=&e^{-\beta d(x)} 
 \end{align}
 
-\item{I is the hazy image, J is the scene radiance representing the haze-free image, A is the atmospheric light, t is the medium transmission, β is the scattering coefficient of the atmosphere and d is the depth of scene}
+\item{I - hazy image}
+\item{J - haze-free image}
+\item{A - atmospheric light}
+\item{t - medium transmission}
+\item{$\beta$ - scattering coefficient of the atmosphere}
+\item{d - depth of scene}
 
 \end{frame}
 
+\begin{frame}[t]{Transmission Map(DCP)}
+
+\begin{figure}[htbp!]
+ \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/mountain.png}
+    \caption{Input Image with Haze}
+\end{minipage}
+    \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/t_mountain.png}
+    \caption{Transmission Map}
+	\end{minipage}   
+\end{figure}
+
+
+\end{frame}
+
+\begin{frame}[t]{Depth Map extraction}
+
+\begin{figure}[htbp!]
+ \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/a.png}
+    
+\end{minipage}
+\begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/b.jpg}
+   
+\end{minipage}   
+\end{figure}
+\begin{figure}[htbp!]
+ \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/c.png}
+    
+\end{minipage}
+\begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/d.png}
+  
+\end{minipage}   
+\end{figure}
+
+
+\end{frame}
+
+\begin{frame}[t]{Capping of transmission}
+
+\begin{figure}[htbp!]
+ \begin{minipage}[b]{0.5\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/dehazed_with_minmax.png}
+    \caption{Transmission between 0.1 and 0.9}
+\end{minipage}
+    \begin{minipage}[b]{0.5\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/dehazed_without_minmax.png}
+\caption{Transmission uncapped}
+	\end{minipage}   
+\end{figure}
+
+
+\end{frame}
+
+\begin{frame}[t]{Simulation Results}
+
+\begin{figure}[htbp!]
+ \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/canon7.jpg}
+    
+\end{minipage}
+    \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/mountain.png}
+
+	\end{minipage}   
+\end{figure}
+\caption{Input Images with Haze}
+
+\end{frame}
+
+
+
+\end{frame}
+\begin{frame}[t]{Simulation Results}
+
+\begin{figure}[htbp!]
+ \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/J_canon7.jpg}
+    \caption{Dehazed using DCP}
+\end{minipage}
+    \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/8.png}
+    \caption{Dehazed using CAP}
+	\end{minipage}   
+\end{figure}
+
+
+\end{frame}
+
+
+\begin{frame}[t]{Simulation Results}
+\begin{figure}[htbp!]
+ \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/J_mountain.png}
+    \caption{Haze removal using DCP}
+\end{minipage}
+    \begin{minipage}[b]{0.45\linewidth}
+    \includegraphics[width=1.0\textwidth]{figures/1.png}
+    \caption{Haze removal using CAP}
+	\end{minipage}   
+\end{figure}
+
+
+
+\end{frame}
 %-------------------------------------------------------------------------------
 \begin{frame}[t]{References}
 \vspace{0.6cm}
