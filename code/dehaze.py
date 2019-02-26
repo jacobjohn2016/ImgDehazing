@@ -74,9 +74,9 @@ def postprocessing(GD, I):
     return J
 
 
-filename = 'canon7.jpg'
+filename = '15.jpg'
 # Read the Image
-_I = cv2.imread('../data/hazy/' + filename )
+_I = cv2.imread('15.jpg')
 # opencv reads any image in Blue-Green-Red(BGR) format,
 # so change it to RGB format, which is popular.
 I = cv2.cvtColor(_I, cv2.COLOR_BGR2RGB)
@@ -104,9 +104,6 @@ eps = 0.2 * 0.2; # try eps=0.1^2, 0.2^2, 0.4^2
 # eps *= 255 * 255;   # Because the intensity range of our images is [0, 255]
 GD=guide(D,LMD,r,eps)
 
-# function of MIT for benchmarking.
-# GD2=gF(D,LMD,r,eps)
-
 J = postprocessing(GD, I)
 
 # Plot the generated raw depth map
@@ -119,4 +116,4 @@ plt.show()
 # save the depthmap.
 # Note: It will be saved as gray image.
 # cv2.imwrite('../data/dehazed/' + filename, J)
-plt.imsave('../data/dehazed/' + filename,int(J*255.0))
+plt.imsave('dehazed.jpg',J)
