@@ -74,46 +74,53 @@ def postprocessing(GD, I):
     return J
 
 
-filename = '15.jpg'
-# Read the Image
-_I = cv2.imread('15.jpg')
-# opencv reads any image in Blue-Green-Red(BGR) format,
-# so change it to RGB format, which is popular.
-I = cv2.cvtColor(_I, cv2.COLOR_BGR2RGB)
-# Split Image to Hue-Saturation-Value(HSV) format.
-H,S,V = cv2.split(cv2.cvtColor(_I, cv2.COLOR_BGR2HSV) )
-V = V/255.0
-S = S/255.0
+if __name__ == '__main__':
+    import sys
+    try:
+        fn = sys.argv[1]
+    except:
+        fn = './initial.jpg'
 
-# Calculating Depth Map using the linear model fit by ZHU et al.
-# Refer Eq(8) in mentioned research paper (README.md file) page 3535.
-theta_0 = 0.121779
-theta_1 = 0.959710
-theta_2 = -0.780245
-sigma   = 0.041337
-epsilon = np.random.normal(0, sigma, H.shape )
-D = theta_0 + theta_1*V + theta_2*S + epsilon
+    # Read the Image
+    _I = cv2.imread(fn)
+    # opencv reads any image in Blue-Green-Red(BGR) format,
+    # so change it to RGB format, which is popular.
+    I = cv2.cvtColor(_I, cv2.COLOR_BGR2RGB)
+    # Split Image to Hue-Saturation-Value(HSV) format.
+    H,S,V = cv2.split(cv2.cvtColor(_I, cv2.COLOR_BGR2HSV) )
+    V = V/255.0
+    S = S/255.0
 
-# Local Minima of Depth map
-LMD = localmin(D, 15)
-# LMD = D
+    # Calculating Depth Map using the linear model fit by ZHU et al.
+    # Refer Eq(8) in mentioned research paper
+    # Values given under EXPERIMENTS section
+    theta_0 = 0.121779
+    theta_1 = 0.959710
+    theta_2 = -0.780245
+    sigma   = 0.041337
+    epsilon = np.random.normal(0, sigma, H.shape )
+    D = theta_0 + theta_1*V + theta_2*S + epsilon
 
-# Guided Filtering
-r = 8; # try r=2, 4, or 8
-eps = 0.2 * 0.2; # try eps=0.1^2, 0.2^2, 0.4^2
-# eps *= 255 * 255;   # Because the intensity range of our images is [0, 255]
-GD=guide(D,LMD,r,eps)
+    # Local Minima of Depth map
+    LMD = localmin(D, 15)
+    # LMD = D
 
-J = postprocessing(GD, I)
+    # Guided Filtering
+    r = 8; # try r=2, 4, 8 or 18
+    eps = 0.2 * 0.2; # try eps=0.1^2, 0.2^2, 0.4^2
+    # eps *= 255 * 255;   # Because the intensity range of our images is [0, 255]
+    GD=guide(D,LMD,r,eps)
 
-# Plot the generated raw depth map
-# plt.subplot(121)
-plt.imshow(J)
-plt.title('Dehazed Image')
-plt.xticks([]); plt.yticks([])
-plt.show()
+    J = postprocessing(GD, I)
 
-# save the depthmap.
-# Note: It will be saved as gray image.
-# cv2.imwrite('../data/dehazed/' + filename, J)
-plt.imsave('dehazed.jpg',J)
+    # Plot the generated raw depth map
+    # plt.subplot(121)
+    plt.imshow(J)
+    plt.title('Dehazed Image')
+    plt.xticks([]); plt.yticks([])
+    plt.show()
+
+    # save the depthmap.
+    # Note: It will be saved as gray image.
+    # cv2.imwrite('../data/dehazed/' + filename, J)
+    plt.imsave('dehazed.jpg',J)
